@@ -18,13 +18,21 @@
 //15 14 13 12
 
 function printIntegerSpiral (n) {
+    n++;
+    if (n === 0){
+        console.log([])
+        return []
+    }
+    if (n === 1){
+        return [0]
+    }
     if (n % 1 !== 0 || typeof (n) !== 'number'){
         return console.log('Input must be an integer');
     };
     const isSquare = (number) => {
-        return number > 0 && Math.sqrt(number) % 1 === 0;
+        return number >= 0 && Math.sqrt(number) % 1 === 0;
     };
-    if (!isSquare(n+1)){
+    if (!isSquare(n)){
         return console.log('Input must be a square number minus 1.');
     };
     const rows = Math.sqrt(n);
@@ -46,7 +54,7 @@ function printIntegerSpiral (n) {
     let startColumn = midpoint - 1;
     let endColumn = startColumn + 1;
 
-    while (counter < n){
+    while (counter < n+1){
         //  left to right
         for (let i = startColumn; i < endColumn; i++){
             matrix[startRow][i] = counter;
