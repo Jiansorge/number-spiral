@@ -24,6 +24,7 @@ function printIntegerSpiral (n) {
         return []
     }
     if (n === 1){
+        console.log([0])
         return [0]
     }
     if (n % 1 !== 0 || typeof (n) !== 'number'){
