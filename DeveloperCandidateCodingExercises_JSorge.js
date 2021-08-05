@@ -18,17 +18,17 @@
 //15 14 13 12
 
 function printIntegerSpiral (n) {
-    if (n % 1 !== 0){
+    if (n % 1 !== 0 || typeof (n) !== 'number'){
         return console.log('Input must be an integer');
     };
     const isSquare = (number) => {
         return number > 0 && Math.sqrt(number) % 1 === 0;
     };
-    if (!isSquare(n-1)){
+    if (!isSquare(n+1)){
         return console.log('Input must be a square number minus 1.');
     };
-    const rows = Math.sqrt(number);
-    const midpoint = Math.floor(rows/2);
+    const rows = Math.sqrt(n);
+    const midpoint = Math.ceil(rows/2);
 
     const matrix = [];
     // create 2D empty matrix 
@@ -42,48 +42,45 @@ function printIntegerSpiral (n) {
     // start in middle if odd
     // start in top left cell of central 2x2 if even
     let startRow = midpoint - 1;
-    let endRow = rows - 1;
+    let endRow = startRow + 1;
     let startColumn = midpoint - 1;
-    let endColumn = rows - 1;
+    let endColumn = startColumn + 1;
 
-    while (startColumn <= endColumn && startRow <= endRow){
-        // top
-        for (let i = startColumn; i <= endColumn; i++){
+    while (counter < n){
+        //  left to right
+        for (let i = startColumn; i < endColumn; i++){
             matrix[startRow][i] = counter;
             counter++;
         }
-        startRow++;
+        if (counter >= n - 1) {
+             break;
+        }
+        startColumn--;
 
-        // right
-        for (let i = startRow; i <= endRow; i++){
+        // top to bottom
+        for (let i = startRow; i < endRow ; i++){
             matrix[i][endColumn] = counter;
             counter++;
         }
-        endColumn--;
+        startRow--;
 
-        // bottom
-        for (let i = endColumn; i <= startColumn; i--){
+        for (let i = endColumn; i > startColumn ; i--){
             matrix[endRow][i] = counter;
             counter++;
         }
-        endRow--;
+        endColumn++;
+        if (counter >= n - 1) {
+            break;
+        }
 
-        // left    
-        for (let i = endRow; i <= startRow; i--){
+        // bottom to top    
+        for (let i = endRow; i > startRow ; i--){
             matrix[i][startColumn] = counter;
             counter++;
         }
-        startColumn++;
+        endRow++;
     };
     
-
-    return matrix;
+    console.log(matrix);
+    return matrix
 };
-
-const testInt1 = 24;
-const testInt2 = 19;
-const testInt3 = 13;
-
-console.log("test int 1",printIntegerSpiral(testInt1));
-console.log("test int 2",printIntegerSpiral(testInt2));
-console.log("test int 3",printIntegerSpiral(testInt3));
